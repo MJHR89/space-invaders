@@ -148,7 +148,7 @@ Task definition in order of priority
 
 
 ### Trello
-https://trello.com/b/6NlRCaIT
+[Trello](https://trello.com/b/6NlRCaIT)
 
 
 ### Git
@@ -157,4 +157,4 @@ https://trello.com/b/6NlRCaIT
 
 
 ### Slides
-https://slides.com/mjhr/space-invaders
+[Slides](https://slides.com/mjhr/space-invaders)
