@@ -6,7 +6,10 @@ If the player fails to shoot them, nobody will save us from the invasion.
 
 
 ## MVP (DOM - CANVAS)
-MVP definition, deliverables.
+-3 screens: (splash, game, and game over)
+-splashScreen: title and Start button
+-gameScreen: 1 player, 1 alien, player shoots bullets)
+-gameoverScreen: winner-invasion message and restart button)
 
 
 ## Backlog
