@@ -165,6 +165,11 @@ Task definition in order of priority
 - create splash screen
 - create game over
 - create game (split in tiny tasks)
+  - create game screen (canvas)
+  - create loop 
+  - players movement
+  - alien movement
+  - bullet movement
 - create player
 - create alien
 - create bullets
