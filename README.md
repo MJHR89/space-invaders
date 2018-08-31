@@ -152,7 +152,7 @@ https://trello.com/b/6NlRCaIT
 
 
 ### Git
-[Link Repo] https://github.com/MJHRhacker/space-invaders.git
+[Link Repo](https://github.com/MJHRhacker/space-invaders.git)
 [Link Deploy](http://github.com)
 
 
