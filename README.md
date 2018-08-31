@@ -119,10 +119,10 @@ hitAlien();
 ## States y States Transitions
 Definition of the different states and their transition (transition functions)
 
-- splashScreen
-- gameScreen
-- gameoverScreen
-- winScreen
+- splashScreen (startButton)
+- gameScreen (hitAlien, collidesWithAlien, reachesBottom => GameOver)
+- gameoverScreen (restart/Play again Button)
+- winScreen (update win-invasion message | Backlog: update score, update lives)
 
 
 ## Task
