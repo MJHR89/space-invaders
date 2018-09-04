@@ -1,0 +1,3 @@
+html{box-sizing:border-box}html,body{height:100%}*,*:before,*:after{box-sizing:inherit}body{margin:0;padding:0;background-color:#04315b}body{color:white;font-family:krungthep;text-align:center;text-transform:uppercase;font-size:16px;line-height:147%}p{margin:0}button{font-family:krungthep;text-transform:uppercase}#site-header{padding:30px 0;color:white;background:#111}#site-footer{color:white;padding:60px 0;background:#111}#site-main{margin-bottom:60px}.container{margin:0 20px}.section{margin-bottom:20px;padding-top:20px}@media (min-width: 768px){.container{max-width:728px;margin:0 auto}}.game header{display:flex;justify-content:space-around}.splash button{background-color:white;border:1px solid gray}
+
+/*# sourceMappingURL=style.css.map */
