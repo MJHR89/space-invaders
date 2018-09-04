@@ -187,7 +187,7 @@ Task definition in order of priority
 
 ### Git
 [Link Repo](https://github.com/MJHRhacker/space-invaders.git)
-[Link Deploy](http://github.com)
+[Link Deploy](https://mjhrhacker.github.io/space-invaders/)
 
 
 ### Slides
