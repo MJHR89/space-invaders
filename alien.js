@@ -32,27 +32,28 @@ function Falcon (canvas) {
   
 }
 
-// Falcon.prototype.collidesWithBullet  = function (bullet) {
-//   var self = this;
+Falcon.prototype.collidesWithBullet  = function (bullet) {
+  var self = this;
   
-//   const collidesRight = self.x + self.size / 2 > bullet.x - bullet.size / 2;
-//   const collidesLeft = self.x - self.size / 2 < bullet.x + bullet.size / 2;
-//   const collidesTop = self.y - self.size / 2 < bullet.y + bullet.size / 2;
-//   const collidesBottom = self.y + self.size / 2 > bullet.y - bullet.size / 2;
+  const collidesRight = self.x + self.size / 2 > bullet.x - bullet.size / 2;
+  const collidesLeft = self.x - self.size / 2 < bullet.x + bullet.size / 2;
+  const collidesTop = self.y - self.size / 2 < bullet.y + bullet.size / 2;
+  const collidesBottom = self.y + self.size / 2 > bullet.y - bullet.size / 2;
 
-//   if (collidesLeft && collidesRight && collidesTop && collidesBottom) {
-//     return true;
-//   }
+  if (collidesLeft && collidesRight && collidesTop && collidesBottom) {
+    return true;
+  }
   
-//   return false;
-// }
+  return false;
+}
 
 
-// Falcon.prototype.collided = function () {
-//   var self = this;
+Falcon.prototype.collided = function () {
+  var self = this;
 
-//   self.game.gameOver();
-// };
+  self.game.gameOver();
+};
+
 
 Falcon.prototype.update = function () {
   var self = this;

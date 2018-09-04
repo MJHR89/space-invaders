@@ -26,3 +26,8 @@ Bullet.prototype.draw = function () {
   self.ctx.fillRect(self.x - self.size / 2, self.y - self.size / 2, self.size, self.size);
 };
 
+Bullet.prototype.bulletIsInScreen = function () {
+  var self = this;
+
+  return self.y > 0;
+};

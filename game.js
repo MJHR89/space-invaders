@@ -106,11 +106,11 @@ Game.prototype.startLoop = function() {
       item.draw();
     })
 
-    // self.vader.bullets = self.vader.bullets.filter(function(item) {
-    //   return item.vader.bulletIsInScreen();
-    // })
+    self.vader.bullets = self.vader.bullets.filter(function(item) {
+      return item.bulletIsInScreen();
+    })
 
-    // self.checkIfBulletsCollidedEnemy();
+    self.checkIfBulletsCollidedEnemy();
       
     if (!self.gameIsOver) {
       window.requestAnimationFrame(loop);
@@ -121,19 +121,21 @@ Game.prototype.startLoop = function() {
   window.requestAnimationFrame(loop);
 };
 
-// Game.prototype.checkIfBulletsCollidedEnemy = function () {
-//   var self = this;
+Game.prototype.checkIfBulletsCollidedEnemy = function () {
+  var self = this;
 
-//   self.enemies.forEach(function(item) {
-//     if (self.falcon.collidesWithBullet(item)) {
-//       self.falcon.collided();
-
-//       if (!self.falcon.collided) {
-//         self.gameOver();
-//       }
-//     }
-//   });
-// };
+  self.enemies.forEach(function(item) {
+    self.vader.bullets.forEach(function (bullet) {
+      if (item.collidesWithBullet(bullet)) {
+        self.gameOver();
+  
+        if (!item.collided) {
+          
+        }
+      }
+    })
+  });
+};
 
 
 Game.prototype.destroy = function () {

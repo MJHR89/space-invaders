@@ -46,7 +46,7 @@ function main () {
     game = new Game();
     game.start();
     game.onOver(function () {
-      gameOver(game.score);
+      gameOver();
     });  
   }
 
@@ -74,11 +74,11 @@ function main () {
     var button = gameOverScreen.querySelector('button');
     button.addEventListener('click', startGame);
 
-    var forceWins = gameOverScreen.querySelector('p.force-wins')
-    forceWins.innerText = score;
+    // var forceWins = gameOverScreen.querySelector('p.force-wins')
+    // forceWins.innerText = score;
 
-    var darkSideWins = gameOverScreen.querySelector('p.dark-side-wins')
-    darkSideWins.innerText = score;
+    // var darkSideWins = gameOverScreen.querySelector('p.dark-side-wins')
+    // darkSideWins.innerText = score;
 
     document.body.appendChild(gameOverScreen);
 

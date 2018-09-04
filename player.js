@@ -69,13 +69,5 @@ Vader.prototype.shoot = function () {
   var bullet = new Bullet(self.ctx, self.x, self.y);
   console.log(self.bullets)
   self.bullets.push(bullet);
-  self.bullets.forEach(function(item) {
-    item.draw();
-  });
+
 }
-
-// Vader.prototype.bulletIsInScreen = function () {
-//   var self = this;
-
-//   return self.y + self.size / 2 > 0;
-// };
