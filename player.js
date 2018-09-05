@@ -13,6 +13,7 @@ function Vader (canvas, lives) {
   self.isShooting;
   self.ctx = self.canvas.getContext('2d');
   self.bullets = [];
+  self.canShoot = true;
 };
 
   
@@ -65,9 +66,7 @@ Vader.prototype.draw = function () {
 
 Vader.prototype.shoot = function () {
   var self = this;
-
-  var bullet = new Bullet(self.ctx, self.x, self.y);
-  console.log(self.bullets)
-  self.bullets.push(bullet);
-
+    var bullet = new Bullet(self.ctx, self.x, self.y);
+  
+    self.bullets.push(bullet);
 }

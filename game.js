@@ -12,7 +12,7 @@ Game.prototype.start = function () {
   self.gameScreen = buildDom(`
     <main class="game container">
       <header>
-        <div class="lives-left">
+        <div class="lives">
           <span class="label">Lives:</span>
           <span class="value"></span>
         </div>
@@ -50,6 +50,7 @@ Game.prototype.start = function () {
   self.canvasElement.setAttribute('height', self.height);
 
   self.vader = new Vader(self.canvasElement, 2);
+  self.livesElement.innerText = self.vader.lives;
   self.vader.draw();
 
   self.handleKeyDown = function (event) {
@@ -60,7 +61,13 @@ Game.prototype.start = function () {
       self.vader.setDirection(-1);
       self.vader.setSpeed(5);
     } else if (event.key === ' ') {
-      self.vader.shoot()
+      if (self.vader.canShoot) {
+        self.vader.shoot()
+        self.vader.canShoot = false;
+        setTimeout(function() {
+          self.vader.canShoot = true;
+        }, 1000)
+      }
     }
   }
 
@@ -71,6 +78,7 @@ Game.prototype.start = function () {
   }
   document.body.addEventListener('keydown', self.handleKeyDown);
   document.body.addEventListener('keyup', self.handleKeyUp);
+
 
   self.falcon = new Falcon(self.canvasElement);
   self.enemies.push(self.falcon)
@@ -111,6 +119,14 @@ Game.prototype.startLoop = function() {
     })
 
     self.checkIfBulletsCollidedEnemy();
+
+    if (self.checkIfEnemysCollidesWithMarginBottom()) {
+      self.gameOver();
+    }
+    
+    if (!self.enemies.length) {
+      self.gameOver();
+    }
       
     if (!self.gameIsOver) {
       window.requestAnimationFrame(loop);
@@ -124,18 +140,32 @@ Game.prototype.startLoop = function() {
 Game.prototype.checkIfBulletsCollidedEnemy = function () {
   var self = this;
 
-  self.enemies.forEach(function(item) {
+  self.enemies.forEach(function(item, index) {
     self.vader.bullets.forEach(function (bullet) {
       if (item.collidesWithBullet(bullet)) {
-        self.gameOver();
-  
-        if (!item.collided) {
-          
-        }
+        self.removeEnemy(index);
       }
     })
   });
 };
+
+Game.prototype.removeEnemy = function(index) {
+var self = this;
+
+  self.enemies.splice(index, 1);
+}
+
+Game.prototype.checkIfEnemysCollidesWithMarginBottom = function () {
+  var self = this;
+
+  var collidedEnemies = self.enemies.filter(function(item) {
+    return item.collidesWithMarginBottom()
+  })
+  
+  if (collidedEnemies.length) {
+    return true;
+  }
+}
 
 
 Game.prototype.destroy = function () {
