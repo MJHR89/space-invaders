@@ -80,11 +80,9 @@ Game.prototype.start = function () {
   document.body.addEventListener('keyup', self.handleKeyUp);
 
 
-  self.falcon = new Falcon(self.canvasElement);
-  self.enemies.push(self.falcon)
-  self.enemies.forEach(function(item) {
-    item.draw();
-  });
+  for (var i = 0; i < 7; i++){
+    self.enemies.push(new Falcon(self.canvasElement, i*70 +70, 50));
+  }
   
   self.startLoop();
 };
@@ -96,8 +94,20 @@ Game.prototype.startLoop = function() {
 
 
   function loop() {
-    //create alien
-    self.falcon.update();
+    
+    self.enemies.forEach(function(item){
+      if (item.x + item.size >= self.canvasElement.width || item.x - item.size <= 0) {
+        self.enemies.forEach(function(enemy) {
+          enemy.y += 25;
+          enemy.direction *= -1;
+        })
+      }
+    });
+
+    self.enemies.forEach(function(item){
+      item.update();
+    })
+
     self.vader.update();
     self.vader.bullets.forEach(function(item) {
       item.update();
@@ -144,6 +154,7 @@ Game.prototype.checkIfBulletsCollidedEnemy = function () {
     self.vader.bullets.forEach(function (bullet) {
       if (item.collidesWithBullet(bullet)) {
         self.removeEnemy(index);
+        self.removeCollidedBullet(bullet);
       }
     })
   });
@@ -154,6 +165,12 @@ var self = this;
 
   self.enemies.splice(index, 1);
 }
+
+Game.prototype.removeCollidedBullet = function(bullet) {
+  var self = this;
+  
+    self.vader.bullets.splice(bullet, 1);
+  }
 
 Game.prototype.checkIfEnemysCollidesWithMarginBottom = function () {
   var self = this;

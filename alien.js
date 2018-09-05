@@ -1,34 +1,17 @@
 'use strict';
 
-function Falcon (canvas) {
+function Falcon (canvas, x, y) {
   var self = this;
 
   self.canvas = canvas;
   self.size = 50;
-  self.x = canvas.width / 2;
-  self.y = 50;
+  self.x = x;
+  self.y = y;
   self.direction = 1;
-  self.speed = 3;
+  self.speed = 2;
   self.ctx = self.canvas.getContext('2d');
   self.wallBounceCounter = 1;
   self.canGoDown = true;
-  
-  
-  // setDirection();
-  // Falcon.prototype.setDirection = function (direction) {
-  //   var self = this;
-
-  //   self.direction = direction;
-    
-  // };
-
-  //collidesWithPlayer();
-  
-  //checkBoundariesCollision;
-  
-  //updatePosition() {
-   // inside here we check collision
-  //};
   
 }
 
@@ -46,13 +29,6 @@ Falcon.prototype.collidesWithBullet  = function (bullet) {
   return false;
 }
 
-
-// Falcon.prototype.collided = function () {
-//   var self = this;
-
-//   self.game.gameOver();
-// };
-
 Falcon.prototype.collidesWithMarginBottom  = function () {
     var self = this;
 
@@ -66,28 +42,8 @@ Falcon.prototype.update = function () {
   
   
   self.x = self.x + self.direction * self.speed;
-  
-  if (self.wallBounceCounter % 2 === 0 && self.canGoDown) {
-    self.y += 25;
-    self.canGoDown = false;
-  }
-  
-  if (self.wallBounceCounter % 2 !== 0 ) self.canGoDown = true;
 
-  // prevents alien form moving outside of the screen
-  if (self.x < 0) {
-    self.direction *= -1;
-    self.wallBounceCounter++;
-    console.log(self.wallBounceCounter)
-  }
-
-  if (self.x > self.canvas.width) {
-    self.direction *= -1;
-    self.wallBounceCounter++;
-    console.log(self.wallBounceCounter)
-  }
 };
-
 
 Falcon.prototype.draw = function () {
   var self = this;

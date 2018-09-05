@@ -16,22 +16,12 @@ function Vader (canvas, lives) {
   self.canShoot = true;
 };
 
-  
-  
-  //setDirection();
+
 Vader.prototype.setDirection = function (direction) {
   var self = this;
 
   self.direction = direction;
 };
-
-  //collidesWithAlien();
-  
-  //checkBoundariesCollision;
-  
-  //updatePosition() {
-   // inside here we check collision
-  //};
 
 
 Vader.prototype.update = function () {
