@@ -1,6 +1,6 @@
 'use strict';
 
-function Falcon (canvas, x, y) {
+function Falcon (canvas, x, y, imagePlayer) {
   var self = this;
 
   self.canvas = canvas;
@@ -12,7 +12,19 @@ function Falcon (canvas, x, y) {
   self.ctx = self.canvas.getContext('2d');
   self.wallBounceCounter = 1;
   self.canGoDown = true;
-  
+  self.imagePlayer = imagePlayer;
+  self.enemyImage = new Image();
+  self.enemyImage.src = self.getEnemy();
+}
+
+Falcon.prototype.getEnemy = function (){
+  var self = this;
+  if (self.imagePlayer.indexOf('pollito')) {
+    console.log(self.imagePlayer); 
+    return './img/car-02.png'
+  } else if (self.imagePlayer.indexOf('car')) {
+    return './img/pollito-02.png'
+  }
 }
 
 Falcon.prototype.collidesWithBullet  = function (bullet) {
@@ -21,8 +33,9 @@ Falcon.prototype.collidesWithBullet  = function (bullet) {
   var collidesRight = self.x + self.size / 2 > bullet.x - bullet.size / 2;
   var collidesLeft = self.x - self.size / 2 < bullet.x + bullet.size / 2;
   var collidesBottom = self.y + self.size / 2 > bullet.y - bullet.size / 2;
+  var collidesTop = self.y - self.size / 2 < bullet.y + bullet.size / 2;
 
-  if (collidesLeft && collidesRight && collidesBottom) {
+  if (collidesLeft && collidesRight && collidesBottom && collidesTop) {
     return true;
   }
   
@@ -49,6 +62,7 @@ Falcon.prototype.draw = function () {
   var self = this;
 
   self.ctx.fillStyle = 'gray';
-  self.ctx.fillRect(self.x - self.size / 2, self.y - self.size / 2, self.size, self.size);
+  //self.ctx.fillRect(self.x - self.size / 2, self.y - self.size / 2, self.size, self.size);
+  self.ctx.drawImage(self.enemyImage, self.x - self.size / 2, self.y - self.size / 2, self.size, self.size);
 };
 

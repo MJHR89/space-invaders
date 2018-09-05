@@ -1,9 +1,10 @@
 'use strict';
 
-function Game() {
+function Game(selectedImage) {
   var self = this;
   var gameScreen;
   self.enemies = [];
+  self.imageSelected =selectedImage;
 }
 
 Game.prototype.start = function () {
@@ -49,7 +50,7 @@ Game.prototype.start = function () {
   self.canvasElement.setAttribute('width', self.width);
   self.canvasElement.setAttribute('height', self.height);
 
-  self.vader = new Vader(self.canvasElement, 2);
+  self.vader = new Vader(self.canvasElement, 2, self.imageSelected);
   self.livesElement.innerText = self.vader.lives;
   self.vader.draw();
 
@@ -80,9 +81,7 @@ Game.prototype.start = function () {
   document.body.addEventListener('keyup', self.handleKeyUp);
 
 
-  for (var i = 0; i < 7; i++){
-    self.enemies.push(new Falcon(self.canvasElement, i*70 +70, 50));
-  }
+  self.newLineOfEnemies();
   
   self.startLoop();
 };
@@ -155,6 +154,7 @@ Game.prototype.checkIfBulletsCollidedEnemy = function () {
       if (item.collidesWithBullet(bullet)) {
         self.removeEnemy(index);
         self.removeCollidedBullet(bullet);
+        self.vader.collided();
       }
     })
   });
@@ -184,6 +184,13 @@ Game.prototype.checkIfEnemysCollidesWithMarginBottom = function () {
   }
 }
 
+Game.prototype.newLineOfEnemies = function () {
+  var self = this;
+
+  for (var i = 0; i < 7; i++){
+    self.enemies.push(new Falcon(self.canvasElement, i*70 +70, 50, self.imageSelected));
+  }
+}
 
 Game.prototype.destroy = function () {
   var self = this;

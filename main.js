@@ -11,6 +11,7 @@ function main () {
   var splashScreen;
   var gameOverScreen;
   var game;
+  var selectedImage;
 
   // --splash Screen
 
@@ -20,7 +21,14 @@ function main () {
       <main class="splash">
         <h1>space invaders</h1>
         <h2>Choose your player<h2>
-        
+        <div class="choose-player">
+          <div>
+            <img src="./img/pollito-02.png">
+          </div>
+          <div>
+          <img src="./img/car-02.png">
+          </div>
+        </div>
         <button>Start</button>
       </main>
     `);
@@ -29,7 +37,16 @@ function main () {
 
     var button = splashScreen.querySelector('button');
     button.addEventListener('click', startGame);
-
+    
+    var character = splashScreen.querySelector('.choose-player');
+    character.addEventListener('click', function(event){
+      var selectedIcon = character.querySelector('.selected');
+      if(selectedIcon) {
+        selectedIcon.classList.remove('selected');
+      }
+      event.target.classList.toggle('selected');
+      selectedImage = event.target.src;
+    });
   
   }
 
@@ -43,7 +60,7 @@ function main () {
     destroySplash();
     destroyGameOver();
 
-    game = new Game();
+    game = new Game(selectedImage);
     game.start();
     game.onOver(function () {
       gameOver();

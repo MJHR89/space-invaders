@@ -1,10 +1,11 @@
 'use strict';
 
-function Vader (canvas, lives) {
+function Vader (canvas, lives, imageSelected) {
   var self = this;
 
   self.canvas = canvas;
   self.lives = lives;
+  self.score = 100;
   self.size = 50;
   self.x = canvas.width / 2;
   self.y = canvas.height -20;
@@ -14,6 +15,8 @@ function Vader (canvas, lives) {
   self.ctx = self.canvas.getContext('2d');
   self.bullets = [];
   self.canShoot = true;
+  self.character = new Image ();
+  self.character.src = imageSelected;
 };
 
 
@@ -39,6 +42,12 @@ Vader.prototype.update = function () {
   }
 };
 
+Vader.prototype.collided = function () {
+  var self = this;
+
+  self.score++;
+}
+
 Vader.prototype.setSpeed = function(speed) {
   var self = this;
 
@@ -51,7 +60,8 @@ Vader.prototype.draw = function () {
 
 
   self.ctx.fillStyle = 'white';
-  self.ctx.fillRect(self.x - self.size / 2, self.y - self.size / 2, self.size, self.size);
+  //self.ctx.fillRect(self.x - self.size / 2, self.y - self.size / 2, self.size, self.size);
+  self.ctx.drawImage(self.character, self.x - self.size / 2, self.y - self.size / 2, self.size, self.size);
 };
 
 Vader.prototype.shoot = function () {
