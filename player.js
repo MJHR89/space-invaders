@@ -5,7 +5,6 @@ function Vader (canvas, lives, imageSelected) {
 
   self.canvas = canvas;
   self.lives = lives;
-  self.score = 100;
   self.size = 50;
   self.x = canvas.width / 2;
   self.y = canvas.height -20;
@@ -17,6 +16,7 @@ function Vader (canvas, lives, imageSelected) {
   self.canShoot = true;
   self.character = new Image ();
   self.character.src = imageSelected;
+  self.Force = 'light';
 };
 
 

@@ -4,6 +4,32 @@
 button {
   background-color: white;
   border: 1px solid gray;
+  padding: 15px 50px;
 }
 
+.splash {
+  & .luke .vader {
+    opacity: 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: .5s ease;
+    backface-visibility: hidden;
+  }
 
+  .luke:hover {
+    opacity: 0.3;
+  }
+
+  .vader:hover {
+    opacity: 0.3;
+  }
+
+  .luke.selected {
+    opacity: 0.5;
+  }
+
+  .vader.selected {
+    opacity: 0.5;
+  }
+}

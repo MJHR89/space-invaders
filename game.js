@@ -4,7 +4,9 @@ function Game(selectedImage) {
   var self = this;
   var gameScreen;
   self.enemies = [];
-  self.imageSelected =selectedImage;
+  self.imageSelected = selectedImage;
+  self.score = 0;
+  self.onGameOverCallback;
 }
 
 Game.prototype.start = function () {
@@ -52,6 +54,8 @@ Game.prototype.start = function () {
 
   self.vader = new Vader(self.canvasElement, 2, self.imageSelected);
   self.livesElement.innerText = self.vader.lives;
+  self.scoreElement.innerText = self.score;
+
   self.vader.draw();
 
   self.handleKeyDown = function (event) {
@@ -155,6 +159,7 @@ Game.prototype.checkIfBulletsCollidedEnemy = function () {
         self.removeEnemy(index);
         self.removeCollidedBullet(bullet);
         self.vader.collided();
+        self.addPoint();
       }
     })
   });
@@ -192,6 +197,13 @@ Game.prototype.newLineOfEnemies = function () {
   }
 }
 
+Game.prototype.addPoint = function () {
+  var self = this;
+
+  self.score = self.score + 100;
+  self.scoreElement.innerText = self.score;
+}
+
 Game.prototype.destroy = function () {
   var self = this;
   
@@ -209,7 +221,7 @@ Game.prototype.gameOver = function () {
   var self = this;
 
   self.gameIsOver = true;
-  self.onGameOverCallback();
+  self.onGameOverCallback(self.lives, self.score, self.imageSelected);
 };
 
 Game.prototype.destroy = function () {

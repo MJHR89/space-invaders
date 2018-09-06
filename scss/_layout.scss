@@ -32,10 +32,41 @@
   }
 }
 
+.splash {
+  h1 {
+    padding-top: 80px;
+    margin-bottom: 60px;
+  } 
+  & .choose-player {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    & img {
+      width: 60%;
+    }
+  }
+  button {
+    margin-top: 40px;
+    font-size: 15px;
+    padding: 8px 20px;
+  }
+}
+
 .game {
   header {
   display: flex;
   justify-content: space-around;
+  }
+}
+
+.gameover {
+  h1 {
+    padding-top: 80px;
+    margin-bottom: 60px;
+  }
+  & .buttons {
+    display: flex;
+    justify-content: center;
   }
 }
 

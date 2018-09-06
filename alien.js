@@ -8,7 +8,7 @@ function Falcon (canvas, x, y, imagePlayer) {
   self.x = x;
   self.y = y;
   self.direction = 1;
-  self.speed = 2;
+  self.speed = 10;
   self.ctx = self.canvas.getContext('2d');
   self.wallBounceCounter = 1;
   self.canGoDown = true;
@@ -19,11 +19,10 @@ function Falcon (canvas, x, y, imagePlayer) {
 
 Falcon.prototype.getEnemy = function (){
   var self = this;
-  if (self.imagePlayer.indexOf('pollito')) {
-    console.log(self.imagePlayer); 
-    return './img/car-02.png'
-  } else if (self.imagePlayer.indexOf('car')) {
-    return './img/pollito-02.png'
+  if (self.imagePlayer.indexOf('Luke-Skywalker') !== -1) {
+    return './img/Death-Star.png'
+  } else {
+    return './img/Millenial-Falcon.png'
   }
 }
 

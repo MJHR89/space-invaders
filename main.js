@@ -16,17 +16,18 @@ function main () {
   // --splash Screen
 
   function buildSplash() {
+    destroyGameOver();
 
     splashScreen = buildDom(`
       <main class="splash">
         <h1>space invaders</h1>
-        <h2>Choose your player<h2>
+        <h2>Choose your player</h2>
         <div class="choose-player">
           <div>
-            <img src="./img/pollito-02.png">
+            <img class="luke" src="./img/Luke-Skywalker.png">
           </div>
           <div>
-          <img src="./img/car-02.png">
+          <img class="vader" src="./img/Darth-Vader.png">
           </div>
         </div>
         <button>Start</button>
@@ -35,8 +36,6 @@ function main () {
 
     document.body.appendChild(splashScreen);
 
-    var button = splashScreen.querySelector('button');
-    button.addEventListener('click', startGame);
     
     var character = splashScreen.querySelector('.choose-player');
     character.addEventListener('click', function(event){
@@ -47,7 +46,9 @@ function main () {
       event.target.classList.toggle('selected');
       selectedImage = event.target.src;
     });
-  
+    
+    var button = splashScreen.querySelector('button');
+    button.addEventListener('click', startGame);
   }
 
   function destroySplash () {
@@ -73,28 +74,48 @@ function main () {
 
   // -- gameOver
 
-  function gameOver(lives, score, round) {
+  function gameOver(lives, score, win) {
     destroyGame();
-    buildGameOver(lives, score, round);
+    buildGameOver(lives, score, win);
   }
 
-  function buildGameOver() {
+  function buildGameOver(lives, score, win) {
     gameOverScreen = buildDom(`
-      <main>
+      <main class="gameover">
         <h1>Game Over</h1>
-        <p class="force-wins"></p>
-        <p class="dark-side-wins"></p>
-        <button>Play Again</button>
+        <h2 class="score"></h2>
+        <p class="winner"></p>
+        <div class="buttons">
+          <button class="play-again">Play Again</button>
+          <button class="change-sides">Change Sides</button>
+        </div>
       </main>
     `);
 
-    var button = gameOverScreen.querySelector('button');
+    var winnerElement = gameOverScreen.querySelector('.winner');
+
+    if (selectedImage.indexOf('Luke-Skywalker') !== -1 && win) {
+      winnerElement.innerText = 'May the force be with You!';
+    } else if (selectedImage.indexOf('Luke-Skywalker') !== -1 && !win) {
+        winnerElement.innerText = 'Welcome to the Dark Side!';
+    } else if (selectedImage.indexOf('Darth-Vader') !== -1 && win) {
+      winnerElement.innerText = 'Welcome to the Dark Side!';
+    } else if (selectedImage.indexOf('Darth-Vader') !== -1 && !win) {
+      winnerElement.innerText = 'May the force be with You!';
+    }
+
+    
+
+    var button = gameOverScreen.querySelector('.play-again');
     button.addEventListener('click', startGame);
 
-    // var forceWins = gameOverScreen.querySelector('p.force-wins')
+    var change = gameOverScreen.querySelector('.change-sides');
+    change.addEventListener('click', buildSplash);
+
+    // var forceWins = gameOverScreen.  ('p.force-wins')
     // forceWins.innerText = score;
 
-    // var darkSideWins = gameOverScreen.querySelector('p.dark-side-wins')
+    // var darkSideWins = gameOverScreen.  ('p.dark-side-wins')
     // darkSideWins.innerText = score;
 
     document.body.appendChild(gameOverScreen);
