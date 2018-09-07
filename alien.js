@@ -8,7 +8,7 @@ function Falcon (canvas, x, y, imagePlayer) {
   self.x = x;
   self.y = y;
   self.direction = 1;
-  self.speed = 10;
+  self.speed = 3;
   self.ctx = self.canvas.getContext('2d');
   self.wallBounceCounter = 1;
   self.canGoDown = true;

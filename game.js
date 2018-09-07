@@ -1,12 +1,14 @@
 'use strict';
 
-function Game(selectedImage) {
+function Game(selectedImage, callback, song) {
   var self = this;
   var gameScreen;
   self.enemies = [];
   self.imageSelected = selectedImage;
   self.score = 0;
-  self.onGameOverCallback;
+  self.cb = callback;
+  self.won = false;
+  self.song = song;
 }
 
 Game.prototype.start = function () {
@@ -31,6 +33,7 @@ Game.prototype.start = function () {
       <div class="canvas">
         <canvas></canvas>
       </div>
+      <audio class="sounds"><source type="audio/mpeg" /></audio>
     </main>
   `);
 
@@ -42,6 +45,12 @@ Game.prototype.start = function () {
   self.roundElement = self.gameScreen.querySelector('.round .value');
 
   document.body.appendChild(self.gameScreen);
+
+  self.audioElement = self.gameScreen.querySelector('.sounds');
+  self.audioElement.src = "./sfx/" + self.song;
+
+  self.shootAudio = new Audio ('./sfx/shoot-sfx.mp3');
+  self.shipDownAudio = new Audio ('./sfx/ship-down-sfx.mp3');
   
   // self.width = self.canvasParentElement.offsetWidth;
   // self.height = self.canvasParentElement.offsetHeight;
@@ -67,7 +76,8 @@ Game.prototype.start = function () {
       self.vader.setSpeed(5);
     } else if (event.key === ' ') {
       if (self.vader.canShoot) {
-        self.vader.shoot()
+        self.vader.shoot();
+        self.shootAudio.play();
         self.vader.canShoot = false;
         setTimeout(function() {
           self.vader.canShoot = true;
@@ -94,7 +104,7 @@ Game.prototype.startLoop = function() {
   var self = this;
 
   var ctx = self.canvasElement.getContext('2d');
-
+  self.audioElement.play();
 
   function loop() {
     
@@ -157,6 +167,7 @@ Game.prototype.checkIfBulletsCollidedEnemy = function () {
     self.vader.bullets.forEach(function (bullet) {
       if (item.collidesWithBullet(bullet)) {
         self.removeEnemy(index);
+        self.shipDownAudio.play();
         self.removeCollidedBullet(bullet);
         self.vader.collided();
         self.addPoint();
@@ -211,17 +222,17 @@ Game.prototype.destroy = function () {
   self.gameOverScreen();
 };
 
-Game.prototype.onOver = function (callback) {
-  var self = this;
-  
-  self.onGameOverCallback = callback;
-};
 
 Game.prototype.gameOver = function () {
   var self = this;
 
   self.gameIsOver = true;
-  self.onGameOverCallback(self.lives, self.score, self.imageSelected);
+  if (self.enemies.length !== 0) {
+    self.won = false;
+  } else if (self.enemies.length === 0) {
+    self.won = true;
+  }
+  self.cb(self);
 };
 
 Game.prototype.destroy = function () {

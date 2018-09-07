@@ -12,8 +12,9 @@ function main () {
   var gameOverScreen;
   var game;
   var selectedImage;
+  var song;
 
-  // --splash Screen
+  // --------------------splash Screen-------------------
 
   function buildSplash() {
     destroyGameOver();
@@ -24,18 +25,28 @@ function main () {
         <h2>Choose your player</h2>
         <div class="choose-player">
           <div>
-            <img class="luke" src="./img/Luke-Skywalker.png">
+            <img class="luke" src="./img/Luke-Skywalker.png" song="luke-music.mp3">
           </div>
           <div>
-          <img class="vader" src="./img/Darth-Vader.png">
+          <img class="vader" src="./img/Darth-Vader.png" song="vader-music.mp3">
           </div>
         </div>
         <button>Start</button>
+        <div class="instructions">
+          <div class="arrows">
+            <img src="./img/arrows.png"><p>Move the player with the arrow keys</p>
+          </div>
+          <div class="space-bar">
+            <img src="./img/space-bar.png"><p>Shoot your enemy's ship</p>
+          </div>
+        </div>
+        <audio class="sounds"><source src="./sfx/splash-music.mp3" type="audio/mpeg" /></audio>
       </main>
     `);
 
     document.body.appendChild(splashScreen);
-
+    var splashElement = splashScreen.querySelector('audio');
+    splashElement.play();
     
     var character = splashScreen.querySelector('.choose-player');
     character.addEventListener('click', function(event){
@@ -45,78 +56,83 @@ function main () {
       }
       event.target.classList.toggle('selected');
       selectedImage = event.target.src;
+      song = event.target.getAttribute('song');
+
+      var button = splashScreen.querySelector('button');
+      button.addEventListener('click', startGame);
     });
     
-    var button = splashScreen.querySelector('button');
-    button.addEventListener('click', startGame);
   }
 
   function destroySplash () {
     splashScreen.remove();
   }
 
-  // -- game
+  // -------------------game-------------------
 
   function startGame() {
     destroySplash();
     destroyGameOver();
 
-    game = new Game(selectedImage);
+    game = new Game(selectedImage, gameOver, song);
     game.start();
-    game.onOver(function () {
-      gameOver();
-    });  
+    // game.onOver(function () {
+    //   gameOver();
+    // });  
   }
 
   function destroyGame() {
     game.destroy();
   }
 
-  // -- gameOver
+  // -------------------gameOver-------------------
 
-  function gameOver(lives, score, win) {
+  function gameOver(game) {
     destroyGame();
-    buildGameOver(lives, score, win);
+    buildGameOver(game);
   }
 
-  function buildGameOver(lives, score, win) {
+  function buildGameOver(game) {
     gameOverScreen = buildDom(`
       <main class="gameover">
         <h1>Game Over</h1>
         <h2 class="score"></h2>
         <p class="winner"></p>
+        <span class"winner-img"></span>
         <div class="buttons">
           <button class="play-again">Play Again</button>
           <button class="change-sides">Change Sides</button>
         </div>
+        <audio class="sounds"><source src="./sfx/gameover-music.mp3" type="audio/mpeg" /></audio>
       </main>
     `);
-
+    
     var winnerElement = gameOverScreen.querySelector('.winner');
 
-    if (selectedImage.indexOf('Luke-Skywalker') !== -1 && win) {
+    if (selectedImage.indexOf('Luke-Skywalker') !== -1 && game.won) {
       winnerElement.innerText = 'May the force be with You!';
-    } else if (selectedImage.indexOf('Luke-Skywalker') !== -1 && !win) {
-        winnerElement.innerText = 'Welcome to the Dark Side!';
-    } else if (selectedImage.indexOf('Darth-Vader') !== -1 && win) {
+    } else if (selectedImage.indexOf('Luke-Skywalker') !== -1 && !game.won) {
       winnerElement.innerText = 'Welcome to the Dark Side!';
-    } else if (selectedImage.indexOf('Darth-Vader') !== -1 && !win) {
+    } else if (selectedImage.indexOf('Darth-Vader') !== -1 && game.won) {
+      winnerElement.innerText = 'Welcome to the Dark Side!';
+    } else if (selectedImage.indexOf('Darth-Vader') !== -1 && !game.won) {
       winnerElement.innerText = 'May the force be with You!';
     }
 
-    
+    var gameOverElement = gameOverScreen.querySelector('audio');
+    gameOverElement.play();
+
+    var scoreElement = gameOverScreen.querySelector('.score');
+    scoreElement.innerText = game.score + " points"
+
+    // var winnerImgElement = gameOverScreen.querySelector('.winner-img');
+    // scoreElement.setAttribute('src', './img/');
 
     var button = gameOverScreen.querySelector('.play-again');
     button.addEventListener('click', startGame);
 
     var change = gameOverScreen.querySelector('.change-sides');
     change.addEventListener('click', buildSplash);
-
-    // var forceWins = gameOverScreen.  ('p.force-wins')
-    // forceWins.innerText = score;
-
-    // var darkSideWins = gameOverScreen.  ('p.dark-side-wins')
-    // darkSideWins.innerText = score;
 
     document.body.appendChild(gameOverScreen);
 
@@ -128,7 +144,7 @@ function main () {
     }
   }
 
-  // -- initialize game
+  // -------------------initialize game-------------------
 
   buildSplash();
 }

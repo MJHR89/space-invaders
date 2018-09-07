@@ -7,6 +7,10 @@ button {
   padding: 15px 50px;
 }
 
+button:hover {
+  opacity: 0.3;
+}
+
 .splash {
   & .luke .vader {
     opacity: 1;
