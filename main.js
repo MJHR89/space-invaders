@@ -46,7 +46,7 @@ function main () {
 
     document.body.appendChild(splashScreen);
     var splashElement = splashScreen.querySelector('audio');
-    splashElement.play();
+    splashElement.autoplay = true;
     
     var character = splashScreen.querySelector('.choose-player');
     character.addEventListener('click', function(event){
@@ -127,7 +127,7 @@ function main () {
     }
 
     var gameOverElement = gameOverScreen.querySelector('audio');
-    gameOverElement.autoplay = true;
+    gameOverElement.play();
 
     var scoreElement = gameOverScreen.querySelector('.score');
     scoreElement.innerText = game.score + " points"
