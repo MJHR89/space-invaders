@@ -66,7 +66,16 @@ Vader.prototype.draw = function () {
 
 Vader.prototype.shoot = function () {
   var self = this;
-    var bullet = new Bullet(self.ctx, self.x, self.y);
-  
-    self.bullets.push(bullet);
+
+  var color = "";
+
+  if (self.character.src.indexOf('Luke-Skywalker') !== -1) {
+    color = "blue";
+  } else {
+    color = "red";
+  }
+
+  var bullet = new Bullet(self.ctx, self.x, self.y, color);
+
+  self.bullets.push(bullet);
 }

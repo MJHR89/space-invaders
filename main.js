@@ -98,7 +98,9 @@ function main () {
         <h1>Game Over</h1>
         <h2 class="score"></h2>
         <p class="winner"></p>
-        <span class"winner-img"></span>
+        <span class="winner-img">
+          <img class="image" src="" alt="">
+        </span>
         <div class="buttons">
           <button class="play-again">Play Again</button>
           <button class="change-sides">Change Sides</button>
@@ -108,15 +110,20 @@ function main () {
     `);
     
     var winnerElement = gameOverScreen.querySelector('.winner');
+    var src;
 
     if (selectedImage.indexOf('Luke-Skywalker') !== -1 && game.won) {
       winnerElement.innerText = 'May the force be with You!';
+      src = './img/Luke-Skywalker.png'
     } else if (selectedImage.indexOf('Luke-Skywalker') !== -1 && !game.won) {
       winnerElement.innerText = 'Welcome to the Dark Side!';
+      src = './img/Darth-Vader.png'
     } else if (selectedImage.indexOf('Darth-Vader') !== -1 && game.won) {
       winnerElement.innerText = 'Welcome to the Dark Side!';
+      src = './img/Darth-Vader.png'
     } else if (selectedImage.indexOf('Darth-Vader') !== -1 && !game.won) {
       winnerElement.innerText = 'May the force be with You!';
+      src = './img/Luke-Skywalker.png'
     }
 
     var gameOverElement = gameOverScreen.querySelector('audio');
@@ -125,8 +132,9 @@ function main () {
     var scoreElement = gameOverScreen.querySelector('.score');
     scoreElement.innerText = game.score + " points"
 
-    // var winnerImgElement = gameOverScreen.querySelector('.winner-img');
-    // scoreElement.setAttribute('src', './img/');
+    var winnerImgElement = gameOverScreen.querySelector('.image');
+    winnerImgElement.src = src;
+
 
     var button = gameOverScreen.querySelector('.play-again');
     button.addEventListener('click', startGame);

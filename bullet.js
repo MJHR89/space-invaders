@@ -1,6 +1,6 @@
 'use strict';
 
-function Bullet (canvas, playerX, playerY) {
+function Bullet (canvas, playerX, playerY, color) {
   var self = this;
 
   self.canvas = canvas;
@@ -11,6 +11,7 @@ function Bullet (canvas, playerX, playerY) {
   self.speed = 3;
   self.isShooting;
   self.ctx = canvas;
+  self.color = color;
 }
 
 Bullet.prototype.update = function () {
@@ -22,7 +23,7 @@ Bullet.prototype.update = function () {
 Bullet.prototype.draw = function () {
   var self = this;
 
-  self.ctx.fillStyle = 'red';
+  self.ctx.fillStyle = self.color;
   self.ctx.fillRect(self.x - self.size / 2, self.y - self.size / 2, self.size, self.size);
 };
 
