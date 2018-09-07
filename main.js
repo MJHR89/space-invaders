@@ -127,7 +127,7 @@ function main () {
     }
 
     var gameOverElement = gameOverScreen.querySelector('audio');
-    gameOverElement.play();
+    gameOverElement.autoplay = true;
 
     var scoreElement = gameOverScreen.querySelector('.score');
     scoreElement.innerText = game.score + " points"
